@@ -45,11 +45,6 @@ jsreport.render({...}).then(function(response) {
 })
 ```
 
-
-
-
-
-
 ##jsreport-core
 
 ```js

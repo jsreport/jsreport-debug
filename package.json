@@ -1,9 +1,11 @@
 {
   "name": "jsreport-debug",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "jsreport extension collecting and serving logs",
   "scripts": {
-    "test": "mocha test --timeout 4000 && standard"
+    "test": "mocha test --timeout 4000 && standard",
+    "build": "npm run prepublish",
+    "prepublish": "in-publish && jsreport-studio-build || not-in-publish"
   },
   "homepage": "https://github.com/jsreport/jsreport-debug",
   "repository": {
@@ -15,23 +17,28 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "in-publish": "2.0.0"
   },
   "author": "Jan Blaha",
   "standard": {
-    "ignore": ["main.js"],
-    "globals": [
-      "describe",
-      "it",
-      "beforeEach",
-      "define",
-      "ace"
-    ]
+    "ignore": [
+      "main.js"
+    ],
+    "parser": "babel-eslint",
+    "env": {
+      "node": true,
+      "mocha": true,
+      "browser": true
+    }
   },
   "devDependencies": {
-    "eslint": "^1.9.0",
+    "babel-eslint": "6.0.4",
+    "eslint": "2.11.1",
+    "eslint-config-standard-jsx": "1.2.1",
+    "eslint-plugin-babel": "3.2.0",
     "jsreport-core": "*",
-    "mocha": "^2.3.3",
-    "should": "^7.1.1",
-    "standard": "^5.3.1"
+    "mocha": "2.5.3",
+    "should": "9.0.1",
+    "standard": "7.1.2"
   }
 }
