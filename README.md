@@ -19,10 +19,10 @@ jsreport extension collecting and serving logs
 > `POST:` /api/report<br/>
 > `BODY:`<br/>
 >```js 
-   { 
-      "template": { },    
-      "options": { "debug": { "logsToResponse": true } }
-   } 
+>   { 
+>      "template": { },    
+>      "options": { "debug": { "logsToResponse": true } }
+>   } 
 >```
 
 #### Serve logs in response header
@@ -30,10 +30,10 @@ jsreport extension collecting and serving logs
 > `POST:` /api/report<br/>
 > `BODY:`<br/>
 >```js 
-   { 
-      "template": { },    
-      "options": { "debug": { "logsToResponseHeader": true } }
-   } 
+>   { 
+>      "template": { },    
+>      "options": { "debug": { "logsToResponseHeader": true } }
+>   } 
 >```
 
 The logs are then serverd in response header `Debug-Logs`.
