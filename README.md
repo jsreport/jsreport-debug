@@ -4,17 +4,17 @@
 
 jsreport extension collecting and serving logs
 
-##Installation
+## Installation
 
 > npm install jsreport-debug
 
-##Usage
+## Usage
 
-####Display logs in jsreport studio
+#### Display logs in jsreport studio
 
 ![debug](http://jsreport.net/blog/jsreport-debug.gif)
 
-####Display logs in the response stream
+#### Display logs in the response stream
 
 > `POST:` /api/report<br/>
 > `BODY:`<br/>
@@ -45,12 +45,12 @@ jsreport.render({...}).then(function(response) {
 })
 ```
 
-##jsreport-core
+## jsreport-core
 
 ```js
 var jsreport = require('jsreport-core')()
 jsreport.use(require('jsreport-debug')())
 ```
 
-##License
+## License
 MIT
