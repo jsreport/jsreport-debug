@@ -43,6 +43,9 @@
     "standard": "7.1.2"
   },
   "files": [
-    "lib", "studio", "index.js", "jsreport.config.js"
+    "lib",
+    "studio",
+    "index.js",
+    "jsreport.config.js"
   ]
 }
