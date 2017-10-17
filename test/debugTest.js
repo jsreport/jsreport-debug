@@ -5,8 +5,8 @@ var debug = require('../')
 describe('debug', function () {
   var reporter
 
-  function init () {
-    reporter = core()
+  function init (options) {
+    reporter = core(options)
     reporter.use(debug())
     reporter.use({
       name: 'test',
@@ -53,5 +53,21 @@ describe('debug', function () {
       response.content.toString().should.containEql('test')
     })
   })
-})
 
+  it('should cut response header for options.debug.logsToResponseHeader using configuration.debug.maxLogResponseHeaderSize', function () {
+    return init({
+      debug: {
+        maxLogResponseHeaderSize: 150
+      }
+    }).then(function () {
+      return reporter.render({
+        template: {content: 'foo', engine: 'none', recipe: 'html'},
+        options: {debug: {logsToResponseHeader: true}}
+      })
+    }).then(function (response) {
+      var logs = JSON.parse(response.headers['Debug-Logs'])
+      logs.should.have.length(2)
+      logs[1].message.should.containEql('HPE_HEADER_OVERFLOW')
+    })
+  })
+})
