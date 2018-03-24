@@ -7,7 +7,7 @@ describe('debug', () => {
   let reporter
 
   function init (options) {
-    reporter = core(Object.assign({ tasks: { strategy: 'in-process' } }, options))
+    reporter = core(Object.assign({ templatingEngines: { strategy: 'in-process' } }, options))
     reporter.use(express())
     reporter.use(debug())
 
@@ -43,8 +43,10 @@ describe('debug', () => {
 
   it('should cut response header for options.debug.logsToResponseHeader using configuration.debug.maxLogResponseHeaderSize', async () => {
     await init({
-      debug: {
-        maxLogResponseHeaderSize: 150
+      extensions: {
+        debug: {
+          maxLogResponseHeaderSize: 150
+        }
       }
     })
     const response = await reporter.render({
