@@ -16,9 +16,7 @@
     "jsreport"
   ],
   "license": "MIT",
-  "dependencies": {
-    "in-publish": "2.0.0"
-  },
+  "dependencies": {},
   "author": "Jan Blaha",
   "standard": {
     "ignore": [
@@ -39,6 +37,7 @@
     "eslint": "4.17.0",
     "eslint-config-standard-jsx": "4.0.2",
     "eslint-plugin-babel": "4.1.2",
+    "in-publish": "2.0.0",
     "jsreport-core": "jsreport/jsreport-core#2.0.0-beta",
     "jsreport-express": "jsreport/jsreport-express#2.0.0-beta",
     "jsreport-studio-dev": "1.1.2",
