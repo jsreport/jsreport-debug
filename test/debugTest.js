@@ -55,6 +55,6 @@ describe('debug', () => {
     })
     const logs = JSON.parse(response.meta.headers['Debug-Logs'])
     logs.should.have.length(2)
-    logs[1].message.should.containEql('HPE_HEADER_OVERFLOW')
+    logs[1].message.should.containEql('cut')
   })
 })
