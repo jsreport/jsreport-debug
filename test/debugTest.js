@@ -20,7 +20,9 @@ describe('debug', () => {
 
   it('should add logs to header if options.debug.logsToResponseHeader', async () => {
     await init()
+
     reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
+
     const response = await reporter.render({
       template: {content: 'foo', engine: 'none', recipe: 'html'},
       options: {debug: {logsToResponseHeader: true}}
@@ -31,6 +33,7 @@ describe('debug', () => {
 
   it('should put logs to response if logsToResponse', async () => {
     await init()
+
     reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
 
     const response = await reporter.render({
@@ -49,10 +52,12 @@ describe('debug', () => {
         }
       }
     })
+
     const response = await reporter.render({
       template: {content: 'foo', engine: 'none', recipe: 'html'},
       options: {debug: {logsToResponseHeader: true}}
     })
+
     const logs = JSON.parse(response.meta.headers['Debug-Logs'])
     logs.should.have.length(2)
     logs[1].message.should.containEql('cut')
