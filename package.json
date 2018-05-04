@@ -16,10 +16,7 @@
     "jsreport"
   ],
   "license": "MIT",
-  "dependencies": {
-    "in-publish": "2.0.0",
-    "safe-buffer": "5.1.1"
-  },
+  "dependencies": {},
   "author": "Jan Blaha",
   "standard": {
     "ignore": [
@@ -32,15 +29,20 @@
       "browser": true
     }
   },
+  "engines": {
+    "node": ">=8.9"
+  },
   "devDependencies": {
-    "babel-eslint": "8.0.1",
-    "eslint": "4.9.0",
+    "babel-eslint": "8.2.1",
+    "eslint": "4.17.0",
     "eslint-config-standard-jsx": "4.0.2",
     "eslint-plugin-babel": "4.1.2",
-    "jsreport-core": "1.4.0",
-    "jsreport-studio-dev": "1.1.1",
-    "mocha": "4.0.1",
-    "should": "13.1.2",
+    "in-publish": "2.0.0",
+    "jsreport-core": "github:jsreport/jsreport-core#2.0.0-beta",
+    "jsreport-express": "github:jsreport/jsreport-express#2.0.0-beta",
+    "jsreport-studio-dev": "1.1.2",
+    "mocha": "5.0.0",
+    "should": "13.2.1",
     "standard": "10.0.3"
   },
   "files": [

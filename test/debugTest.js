@@ -1,73 +1,65 @@
 require('should')
-var core = require('jsreport-core')
-var debug = require('../')
+const core = require('jsreport-core')
+const debug = require('../')
+const express = require('jsreport-express')
 
-describe('debug', function () {
-  var reporter
+describe('debug', () => {
+  let reporter
 
   function init (options) {
-    reporter = core(options)
+    reporter = core(Object.assign({ templatingEngines: { strategy: 'in-process' } }, options))
+    reporter.use(express())
     reporter.use(debug())
-    reporter.use({
-      name: 'test',
-      main: function (reporter, definition) {
-        reporter.beforeRenderListeners.add('test', function (request, response) {
-          request.logger.info('test')
-        })
-      }
-    })
 
     return reporter.init()
   }
 
-  it('should add logs to the response', function () {
-    return init().then(function () {
-      return reporter.render({template: {content: 'foo', engine: 'none', recipe: 'html'}})
-    }).then(function (response) {
-      response.logs.filter(function (m) {
-        return m.message === 'test'
-      }).should.have.length(1)
-    })
+  afterEach(() => {
+    return reporter.close()
   })
 
-  it('should add logs to header if options.debug.logsToResponseHeader', function () {
-    return init().then(function () {
-      return reporter.render({
-        template: {content: 'foo', engine: 'none', recipe: 'html'},
-        options: {debug: {logsToResponseHeader: true}}
-      })
-    }).then(function (response) {
-      JSON.parse(response.headers['Debug-Logs']).filter(function (m) {
-        return m.message === 'test'
-      }).should.have.length(1)
+  it('should add logs to header if options.debug.logsToResponseHeader', async () => {
+    await init()
+
+    reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
+
+    const response = await reporter.render({
+      template: {content: 'foo', engine: 'none', recipe: 'html'},
+      options: {debug: {logsToResponseHeader: true}}
     })
+
+    JSON.parse(response.meta.headers['Debug-Logs']).filter((m) => m.message === 'test').should.have.length(1)
   })
 
-  it('should put logs to response if logsToResponse', function () {
-    return init().then(function () {
-      return reporter.render({
-        template: {content: 'foo', engine: 'none', recipe: 'html'},
-        options: {debug: {logsToResponse: true}}
-      })
-    }).then(function (response) {
-      response.content.toString().should.containEql('test')
+  it('should put logs to response if logsToResponse', async () => {
+    await init()
+
+    reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
+
+    const response = await reporter.render({
+      template: {content: 'foo', engine: 'none', recipe: 'html'},
+      options: {debug: {logsToResponse: true}}
     })
+
+    response.content.toString().should.containEql('test')
   })
 
-  it('should cut response header for options.debug.logsToResponseHeader using configuration.debug.maxLogResponseHeaderSize', function () {
-    return init({
-      debug: {
-        maxLogResponseHeaderSize: 150
+  it('should cut response header for options.debug.logsToResponseHeader using configuration.debug.maxLogResponseHeaderSize', async () => {
+    await init({
+      extensions: {
+        debug: {
+          maxLogResponseHeaderSize: 150
+        }
       }
-    }).then(function () {
-      return reporter.render({
-        template: {content: 'foo', engine: 'none', recipe: 'html'},
-        options: {debug: {logsToResponseHeader: true}}
-      })
-    }).then(function (response) {
-      var logs = JSON.parse(response.headers['Debug-Logs'])
-      logs.should.have.length(2)
-      logs[1].message.should.containEql('HPE_HEADER_OVERFLOW')
     })
+
+    const response = await reporter.render({
+      template: {content: 'foo', engine: 'none', recipe: 'html'},
+      options: {debug: {logsToResponseHeader: true}}
+    })
+
+    const logs = JSON.parse(response.meta.headers['Debug-Logs'])
+    logs.should.have.length(2)
+    logs[1].message.should.containEql('cut')
   })
 })
