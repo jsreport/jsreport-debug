@@ -24,8 +24,8 @@ describe('debug', () => {
     reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
 
     const response = await reporter.render({
-      template: {content: 'foo', engine: 'none', recipe: 'html'},
-      options: {debug: {logsToResponseHeader: true}}
+      template: { content: 'foo', engine: 'none', recipe: 'html' },
+      options: { debug: { logsToResponseHeader: true } }
     })
 
     JSON.parse(response.meta.headers['Debug-Logs']).filter((m) => m.message === 'test').should.have.length(1)
@@ -37,8 +37,8 @@ describe('debug', () => {
     reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
 
     const response = await reporter.render({
-      template: {content: 'foo', engine: 'none', recipe: 'html'},
-      options: {debug: {logsToResponse: true}}
+      template: { content: 'foo', engine: 'none', recipe: 'html' },
+      options: { debug: { logsToResponse: true } }
     })
 
     response.content.toString().should.containEql('test')
@@ -54,8 +54,8 @@ describe('debug', () => {
     })
 
     const response = await reporter.render({
-      template: {content: 'foo', engine: 'none', recipe: 'html'},
-      options: {debug: {logsToResponseHeader: true}}
+      template: { content: 'foo', engine: 'none', recipe: 'html' },
+      options: { debug: { logsToResponseHeader: true } }
     })
 
     const logs = JSON.parse(response.meta.headers['Debug-Logs'])
