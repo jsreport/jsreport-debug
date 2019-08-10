@@ -67,8 +67,8 @@ describe('debug', () => {
     await init()
     reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
     const response = await reporter.render({
-      template: {content: 'foo', engine: 'none', recipe: 'html', helpers: `console.log('™©®')`},
-      options: {debug: {logsToResponseHeader: true}}
+      template: { content: 'foo', engine: 'none', recipe: 'html', helpers: `console.log('™©®')` },
+      options: { debug: { logsToResponseHeader: true } }
     })
 
     response.meta.headers['Debug-Logs'].should.not.containEql('™©®')

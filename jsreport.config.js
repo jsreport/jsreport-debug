@@ -1,8 +1,8 @@
 
 module.exports = {
-  'name': 'debug',
-  'main': 'lib/debug.js',
-  'optionsSchema': {
+  name: 'debug',
+  main: 'lib/debug.js',
+  optionsSchema: {
     extensions: {
       debug: {
         type: 'object',
@@ -12,6 +12,6 @@ module.exports = {
       }
     }
   },
-  'dependencies': [],
-  'skipInExeRender': true
+  dependencies: [],
+  skipInExeRender: true
 }
