@@ -57,4 +57,15 @@ describe('debug', () => {
     logs.should.have.length(2)
     logs[1].message.should.containEql('cut')
   })
+
+  it('should remove invalid characters when options.debug.logsToResponseHeader', async () => {
+    await init()
+    reporter.beforeRenderListeners.add('test', (req) => reporter.logger.info('test', req))
+    const response = await reporter.render({
+      template: {content: 'foo', engine: 'none', recipe: 'html', helpers: `console.log('™©®')`},
+      options: {debug: {logsToResponseHeader: true}}
+    })
+
+    response.meta.headers['Debug-Logs'].should.not.containEql('™©®')
+  })
 })
