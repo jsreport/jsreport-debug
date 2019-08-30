@@ -4,7 +4,7 @@
   "description": "jsreport extension collecting and serving logs",
   "scripts": {
     "test": "mocha test --timeout 4000 && standard",
-    "build": "npm run prepublish",
+    "build": "jsreport-studio-build",
     "prepublish": "in-publish && jsreport-studio-build || not-in-publish"
   },
   "homepage": "https://github.com/jsreport/jsreport-debug",
@@ -38,9 +38,9 @@
     "eslint-config-standard-jsx": "7.0.0",
     "eslint-plugin-babel": "5.3.0",
     "in-publish": "2.0.0",
-    "jsreport-core": "2.5.0",
-    "jsreport-express": "2.4.0",
-    "jsreport-studio-dev": "1.4.0",
+    "jsreport-core": "2.6.1",
+    "jsreport-express": "2.5.0",
+    "jsreport-studio-dev": "1.5.0",
     "mocha": "6.2.0",
     "should": "13.2.3",
     "standard": "13.1.0"
