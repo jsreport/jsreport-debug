@@ -119,11 +119,19 @@ _jsreportStudio2.default.addToolbarComponent(function (props) {
   );
 });
 
-_jsreportStudio2.default.previewListeners.push(function (request, entities) {
-  if (debug) {
-    request.options.debug = { logsToResponse: true };
-  }
-  debug = false;
+_jsreportStudio2.default.initializeListeners.push(function () {
+  _jsreportStudio2.default.previewListeners.push(function (request, entities) {
+    if (debug) {
+      request.options.debug = { logsToResponse: true };
+      debug = false;
+
+      // in debug the recipe execution ends with logs so we explicetly put here
+      // that we want theming
+      return { disableTheming: false };
+    } else {
+      debug = false;
+    }
+  });
 });
 
 /***/ }),
