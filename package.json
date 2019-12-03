@@ -1,6 +1,6 @@
 {
   "name": "jsreport-debug",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "jsreport extension collecting and serving logs",
   "scripts": {
     "test": "mocha test --timeout 4000 && standard",
