@@ -3,6 +3,7 @@
   "version": "2.1.2",
   "description": "jsreport extension collecting and serving logs",
   "scripts": {
+    "start": "jsreport-studio-start --httpPort 4300",
     "test": "mocha test --timeout 4000 && standard",
     "build": "jsreport-studio-build",
     "prepublish": "in-publish && jsreport-studio-build || not-in-publish"
